@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boyovut tuman 1-son Texnikumi</title>
+  <style>
+    /* Сброс стилей и шрифты */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; scroll-behavior: smooth; }
+    body { background-color: #f4f6f9; color: #333; }
+    a { text-decoration: none; color: inherit; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* 1. ВЕРХНЯЯ ИНФОРМАЦИОННАЯ ПАНЕЛЬ (По образу Гулистанского ГУ) */
+    .top-bar { background: #2d3748; color: #e2e8f0; font-size: 13px; padding: 10px 0; border-bottom: 1px solid #4a5568; }
+    .top-bar-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .top-contacts { display: flex; gap: 20px; flex-wrap: wrap; }
+    .top-contacts span { display: flex; align-items: center; gap: 6px; }
+    .lang-area .btn { background: none; color: #cbd5e0; border: none; cursor: pointer; font-size: 13px; font-weight: 600; margin-left: 10px; transition: 0.2s; }
+    .lang-area .btn:hover, .lang-area .btn.active { color: #f6ad55; }
+
+    /* 2. ШАПКА И ГЛАВНОЕ МЕНЮ */
+    header { background: #1a202c; color: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .header-main { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; }
+    .logo-section { display: flex; align-items: center; gap: 15px; }
+    .logo-section .emblem { font-size: 32px; background: #2b6cb0; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 2px solid #fff; }
+    .logo-text h1 { font-size: 18px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; }
+    .logo-text p { font-size: 11px; color: #a0aec0; }
+
+    nav .nav-links { display: flex; list-style: none; background: #2b6cb0; border-radius: 4px; overflow-x: auto; }
+    nav .nav-links li { position: relative; }
+    nav .nav-links a { display: block; color: white; padding: 12px 18px; font-weight: 600; font-size: 14px; white-space: nowrap; transition: 0.2s; }
+    nav .nav-links a:hover { background: #1a365d; color: #f6ad55; }
+
+    /* 3. ГЛАВНЫЙ БАННЕР С ПАНОРАМОЙ */
+    .hero-panorama { 
+      background: linear-gradient(rgba(26, 32, 44, 0.65), rgba(26, 32, 44, 0.85)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80') center/cover; 
+      color: white; padding: 100px 0; text-align: center; border-bottom: 5px solid #2b6cb0;
+    }
+    .hero-panorama h2 { font-size: 36px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+    .hero-panorama p { font-size: 18px; color: #e2e8f0; max-width: 800px; margin: 0 auto; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+
+    /* КОНТЕНТНЫЕ СЕКЦИИ */
+    section { padding: 60px 0; }
+    section:nth-child(even) { background: white; }
+    .section-title { font-size: 24px; color: #1a365d; margin-bottom: 35px; text-transform: uppercase; font-weight: bold; position: relative; padding-bottom: 10px; }
+    .section-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 50px; height: 4px; background: #2b6cb0; }
+
+    /* Сетки */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+    .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 25px; transition: 0.3s; border-top: 4px solid #2b6cb0; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
+    .card h3 { color: #2b6cb0; margin-bottom: 12px; font-size: 18px; }
+    .card p { color: #4a5568; font-size: 15px; line-height: 1.6; }
+
+    /* Галерея */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; }
+    .gallery-item { position: relative; overflow: hidden; border-radius: 6px; height: 190px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+    .gallery-item:hover img { transform: scale(1.08); }
+
+    /* Руководство */
+    .leader-card { display: flex; background: #f8fafc; border: 1px solid #e2e8f0; padding: 25px; border-radius: 6px; gap: 25px; align-items: center; max-width: 600px; }
+    .leader-avatar { width: 110px; height: 110px; background: #cbd5e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 42px; border: 3px solid #2b6cb0; }
+    .leader-info h4 { color: #1a365d; font-size: 19px; margin-bottom: 2px; }
+    .leader-info em { color: #718096; display: block; margin-bottom: 8px; font-style: normal; font-weight: 500; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
+
+    /* Форма подачи */
+    .form-wrapper { background: #f8fafc; border: 1px solid #e2e8f0; padding: 35px; border-radius: 8px; max-width: 650px; margin: 0 auto; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; color: #4a5568; }
+    .form-control { width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 4px; font-size: 15px; background: #fff; }
+    .form-control:focus { outline: none; border-color: #2b6cb0; box-shadow: 0 0 0 3px rgba(66,153,225,0.2); }
+    .btn-submit { background: #2b6cb0; color: white; padding: 14px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; transition: 0.2s; }
+    .btn-submit:hover { background: #1a365d; }
+    .alert { padding: 15px; margin-top: 15px; border-radius: 4px; display: none; font-weight: bold; background: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; }
+
+    /* 4. СТРУКТУРИРОВАННЫЙ ПОДВАЛ (По образу image_94b2e0.jpg) */
+    footer { background: #f7fafc; color: #4a5568; border-top: 1px solid #e2e8f0; padding: 60px 0 20px 0; font-size: 14px; }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
+    .footer-col h3 { color: #1a365d; font-size: 16px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; position: relative; padding-bottom: 8px; }
+    .footer-col h3::after { content: ''; position: absolute; left: 0; bottom: 0; width: 35px; height: 3px; background: #2b6cb0; }
+    .footer-col p { line-height: 1.7; margin-bottom: 10px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { color: #4a5568; transition: 0.2s; }
+    .footer-col ul li a:hover { color: #2b6cb0; text-decoration: underline; }
+    
+    /* Интерактивная карта */
+    .footer-map { height: 250px; border-radius: 6px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+    
+    .footer-bottom { border-top: 1px solid #e2e8f0; padding-top: 20px; text-align: center; color: #718096; font-size: 13px; }
+
+    /* Адаптивный дизайн */
+    @media (max-width: 992px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .header-main, .top-bar-flex, .footer-grid { flex-direction: column; grid-template-columns: 1fr; text-align: center; }
+      .logo-section { flex-direction: column; gap: 8px; }
+      nav .nav-links { justify-content: flex-start; }
+      .footer-col h3::after { left: 50%; transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. ТОП-БАР С КОНТАКТАМИ И ЯЗЫКАМИ (GulDU style) -->
+  <div class="top-bar">
+    <div class="container top-bar-flex">
+      <div class="top-contacts">
+        <span>📞 Ishonch telefoni: (67) 390-10-35</span>
+        <span>✉️ boyovut_1texnikum@edu.uz</span>
+        <span>📍 Sirdaryo viloyati, Boyovut shaharchasi</span>
+      </div>
+      <div class="lang-area">
+        <button class="btn active" onclick="changeLang('uz')">O'zbekcha</button>
+        <button class="btn" onclick="changeLang('ru')">Русский</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ОСНОВНАЯ ШАПКА И НАВИГАЦИЯ -->
+  <header>
+    <div class="container">
+      <div class="header-main">
+        <div class="logo-section">
+          <div class="emblem">🏛️</div>
+          <div class="logo-text">
+            <h1 id="t-header">Boyovut tuman 1-son Texnikumi</h1>
+            <p id="t-sub-header">Oliy ta'lim, fan va innovatsiyalar vazirligi tasarrufida</p>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home" id="m-1">Bosh sahifa</a></li>
+          <li><a href="#news" id="m-2">Yangiliklar</a></li>
+          <li><a href="#history" id="m-5">Tarix</a></li>
+          <li><a href="#directions" id="m-3">Yo'nalishlar</a></li>
+          <li><a href="#gallery" id="m-6">Fotoalbom</a></li>
+          <li><a href="#management" id="m-8">Rahbariyat</a></li>
+          <li><a href="#admission" id="m-7">Hujjat topshirish</a></li>
+          <li><a href="#footer-anchor" id="m-4">Qayta aloqa</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 3. ПАНОРАМНЫЙ БАННЕР -->
+  <div class="hero-panorama" id="home">
+    <div class="container">
+      <h2 id="hero-title">Kelajak kasbini biz bilan ko'ring!</h2>
+      <p id="hero-desc">Boyovut tuman 1-son professional texnikumi — malakali ta'lim va kafolatlangan kelajak poydevori.</p>
+    </div>
+  </div>
+
+  <!-- ОСНОВНЫЕ РАЗДЕЛЫ -->
+  <div class="container">
+    
+    <!-- НОВОСТИ -->
+    <section id="news">
+      <h2 class="section-title" id="h-news">Yangiliklar</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3 id="n1-t">Qabul jarayonlari boshlandi</h3>
+          <p id="n1-d">Yangi o'quv yili uchun hujjatlar qabuli rasman ochiq deb e'lon qilindi. Arizalarni onlayn yuborishingiz mumkin.</p>
+        </div>
+        <div class="card">
+          <h3 id="n2-t">Moddiy-texnik baza yangilandi</h3>
+          <p id="n2-d">Elektromontaj va tikuvchilik yo'nalishlari uchun yangi zamonaviy uskunalar va dastgohlar olib kelindi.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ИСТОРИЯ -->
+    <section id="history">
+      <h2 class="section-title" id="h-history">Texnikum tarixi</h2>
+      <p id="p-history" style="font-size:16px; line-height:1.8; color:#4a5568;">
+        Boyovut tuman 1-son Texnikumi ko'p yillar davomida Sirdaryo viloyatida yoshlarga professional ta'lim berish muassasasi bo'lib kelmoqda. Muassasa tashkil etilgandan buyon minglab malakali mutaxassislar tayyorlanib, respublikamizning turli sohalarida samarali mehnat qilib kelishmoqda. Biz har yili o'quv dasturlarini zamonaviy bozor talablariga moslab yangilab boramiz.
+      </p>
+    </section>
+
+    <!-- НАПРАВЛЕНИЯ -->
+    <section id="directions">
+      <h2 class="section-title" id="h-dirs">Ta'lim Yo'nalishlari</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3 id="d1-t">Tikuvchilik</h3>
+          <p id="d1-d">Modellashtirish, kiyim dizayni va tikuvchilik sanoati sirlarini mukammal o'rganish xonasi.</p>
+        </div>
+        <div class="card">
+          <h3 id="d2-t">Elektromontajyer</h3>
+          <p id="d2-d">Sanoat va maishiy ob'ektlarda elektr tizimlarini o'rnatish, xizmat ko'rsatish texnikasi.</p>
+        </div>
+        <div class="card">
+          <h3 id="d3-t">Buxgalteriya</h3>
+          <p id="d3-d">Iqtisodiyot asoslari, korxonalarda hisob-kitob va soliq tizimi operatsiyalari.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ФОТОГАЛЕРЕЯ -->
+    <section id="gallery">
+      <h2 class="section-title" id="h-gallery">Fotoalbom</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=400&q=80" alt="1"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=400&q=80" alt="2"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80" alt="3"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=400&q=80" alt="4"></div>
+      </div>
+    </section>
+
+    <!-- РУКОВОДСТВО -->
+    <section id="management">
+      <h2 class="section-title" id="h-man">Rahbariyat</h2>
+      <div class="leader-card">
+        <div class="leader-avatar">👨‍💼</div>
+        <div class="leader-info">
+          <h4 id="l1-p">Texnikum direktori</h4>
+          <h5>Abduvaliyev Islomjon Karimovch</h5>
+          <p><span id="l1-h">Qabul kunlari:</span> Dushanba - Juma, 09:00 - 13:00</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ОНЛАЙН ПОДАЧА -->
+    <section id="admission">
+      <h2 class="section-title" id="h-adm">Onlayn Hujjat Topshirish</h2>
+      <div class="form-wrapper">
+        <form id="admForm" onsubmit="sendData(event, 'admission')">
+          <div class="form-group">
+            <label for="fio" id="l-fio">F.I.O (To'liq):</label>
+            <input type="text" id="fio" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="phone" id="l-phone">Telefon raqam:</label>
+            <input type="tel" id="phone" value="+998" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="dir" id="l-dir">Yo'nalishni tanlang:</label>
+            <select id="dir" class="form-control">
+              <option value="Tikuvchilik">Tikuvchilik</option>
+              <option value="Elektromontajyer">Elektromontajyer</option>
+              <option value="Buxgalteriya">Buxgalteriya</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit" id="b-adm">Hujjatlarni yuborish</button>
+        </form>
+        <div id="admAlert" class="alert"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 4. ПРОФЕССИОНАЛЬНЫЙ ФУТЕР (По структуре GulDU с картой) -->
+  <footer id="footer-anchor">
+    <div class="container footer-grid">
+      
+      <!-- Колонка 1: Описание и Контакты -->
+      <div class="footer-col">
+        <h3 id="f-c1-t">Texnikum</h3>
+        <p>Boyovut tuman 1-son kasb-hunar texnikumi.</p>
+        <p><b>Tel:</b> (67) 390-10-35</p>
+        <p><b>Faks:</b> (67) 390-10-35</p>
+        <p id="f-addr"><b>Manzil:</b> Sirdaryo viloyati, Boyovut tumani, 4-mavze.</p>
+      </div>
+
+      <!-- Колонка 2: Внутренние Ресурсы -->
+      <div class="footer-col">
+        <h3 id="f-c2-t">Resurslar</h3>
+        <ul>
+          <li><a href="#">hemis.texnikum.uz</a></li>
+          <li><a href="#">student.texnikum.uz</a></li>
+          <li><a href="#">portal.texnikum.uz</a></li>
+          <li><a href="#" id="f-link-timetable">Dars jadvali</a></li>
+        </ul>
+      </div>
+
+      <!-- Колонка 3: Полезные Ссылки -->
+      <div class="footer-col">
+        <h3 id="f-c3-t">Foydali resurslar</h3>
+        <ul>
+          <li><a href="https://gov.uz" target="_blank">gov.uz</a></li>
+          <li><a href="https://my.gov.uz" target="_blank">my.gov.uz</a></li>
+          <li><a href="https://lex.uz" target="_blank">lex.uz</a></li>
+          <li><a href="https://edu.uz" target="_blank">edu.uz</a></li>
+        </ul>
+      </div>
+
+      <!-- Колонка 4: Форма Обратной связи и Интерактивная Карта -->
+      <div class="footer-col">
+        <h3 id="f-c4-t">Qayta aloqa va Xarita</h3>
+        <form id="conForm" onsubmit="sendData(event, 'contact')" style="margin-bottom: 15px;">
+          <input type="text" id="c-name" placeholder="Ismingiz / Ваше имя" required class="form-control" style="padding:8px; margin-bottom:8px; font-size:13px;">
+          <textarea id="c-msg" placeholder="Xabar matni / Текст сообщения" rows="2" required class="form-control" style="padding:8px; margin-bottom:8px; font-size:13px;"></textarea>
+          <button type="submit" class="btn-submit" id="b-con" style="padding:8px; font-size:13px;">Yuborish</button>
+        </form>
+        <div id="conAlert" class="alert" style="padding:8px; font-size:13px;"></div>
+
+        <div class="footer-map">
+          <iframe 
+            src="https://maps.google.com/maps?q=Bayaut,Sirdaryo,Uzbekistan&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>Copyright &copy; 2026 All Rights Reserved by Boyovut tuman 1-son Texnikumi</p>
+    </div>
+  </footer>
+
+  <!-- СКРИПТ ПЕРЕВОДА И ОТПРАВКИ -->
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwK7y2gwukPx1ZN13IbeA1-eJDLV_k8G5rAJpvxQV-Hg5Z7vAkqjR_wUFl2ZXdBPzWt/exec';
+
+    const trans = {
+      uz: {
+        h: "Boyovut tuman 1-son Texnikumi", sh: "Oliy ta'lim, fan va innovatsiyalar vazirligi tasarrufida",
+        m1:"Bosh sahifa", m2:"Yangiliklar", m3:"Yo'nalishlar", m4:"Qayta aloqa", m5:"Tarix", m6:"Fotoalbom", m7:"Hujjat topshirish", m8:"Rahbariyat",
+        ht:"Kelajak kasbini biz bilan ko'ring!", hd:"Boyovut tuman 1-son professional texnikumi — malakali ta'lim va kafolatlangan kelajak poydevori.",
+        hn:"Yangiliklar", n1t:"Qabul jarayonlari boshlandi", n1d:"Yangi o'quv yili uchun hujjatlar qabuli rasman ochiq deb e'lon qilindi.",
+        n2t:"Moddiy-texnik baza yangilandi", n2d:"Elektromontaj va tikuvchilik yo'nalishlari uchun yangi zamonaviy uskunalar olib kelindi.",
+        hhis:"Texnikum tarixi", pHis:"Boyovut tuman 1-son Texnikumi ko'p yillar davomida Sirdaryo viloyatida yoshlarga professional ta'lim berish muassasasi bo'lib kelmoqda. Muassasa tashkil etilgandan buyon minglab malakali mutaxassislar tayyorlanib, respublikamizning turli sohalarida samarali mehnat qilib kelishmoqda.",
+        hdir:"Ta'lim Yo'nalishlari", d1t:"Tikuvchilik", d1d:"Modellashtirish, kiyim dizayni va tikuvchilik sanoati sirlarini mukammal o'rganish xonasi.", d2t:"Elektromontajyer", d2d:"Sanoat va maishiy ob'ektlarda elektr tizimlarini o'rnatish texnikasi.", d3t:"Buxgalteriya", d3d:"Iqtisodiyot asoslari, korxonalarda hisob-kitob va soliq tizimi.",
+        hgal:"Fotoalbom", hman:"Rahbariyat", l1p:"Texnikum direktori", l1h:"Qabul kunlari: Dushanba - Juma, 09:00 - 13:00",
+        hadm:"Onlayn Hujjat Topshirish", lfio:"F.I.O (To'liq):", lph:"Telefon raqam:", ldir:"Yo'nalishni tanlang:", badm:"Hujjatlarni yuborish",
+        fc1:"Texnikum", fc2:"Resurslar", fc3:"Foydali resurslar", fc4:"Qayta aloqa va Xarita", faddr:"<b>Manzil:</b> Sirdaryo viloyati, Boyovut tumani, 4-mavze.", ftt:"Dars jadvali",
+        suc:"Muvaffaqiyatli yuborildi!"
+      },
+      ru: {
+        h: "Техникум №1 Боёвутского района", sh: "Под ведомством Министерства высшего образования, науки и инноваций",
+        m1:"Главная", m2:"Новости", m3:"Направления", m4:"Обратная связь", m5:"История", m6:"Галерея", m7:"Подача документов", m8:"Руководство",
+        ht:"Постройте карьеру вместе с нами!", hd:"Профессиональный техникум №1 Боёвутского района — фундамент качественного образования.",
+        hn:"Новости", n1t:"Начался процесс приема", n1d:"Официально объявлен прием документов на новый учебный год. Вы можете подать заявку онлайн.",
+        n2t:"Обновлена материально-техническая база", n2d:"Для направлений электромонтажа и швейного дела завезено новое современное оборудование.",
+        hhis:"История техникума", pHis:"Техникум №1 Боёвутского района на протяжении многих лет является ведущим учреждением профессионального образования в Сырдарьинской области. С момента основания подготовлены тысячи квалифицированных специалистов.",
+        hdir:"Направления обучения", d1t:"Швейное дело", d1d:"Секреты моделирования, дизайна одежды и швейного производства в современных реалиях.", d2t:"Электромонтажник", d2d:"Техника монтажа и обслуживания электрических систем на промышленных и жилых объектах.", d3t:"Бухгалтерия", d3d:"Основы экономики, учетная политика и налогообложение предприятий.",
+        hgal:"Фотогалерея", hman:"Руководство", l1p:"Директор техникума", l1h:"Дни приема: Понедельник - Пятница, 09:00 - 13:00",
+        hadm:"Онлайн подача документов", lfio:"Ф.И.О (Полностью):", lph:"Номер телефона:", ldir:"Выберите направление:", badm:"Отправить документы",
+        fc1:"Техникум", fc2:"Ресурсы", fc3:"Полезные ресурсы", fc4:"Обратная связь и Карта", faddr:"<b>Адрес:</b> Сырдарьинская область, Боёвутский район, 4-й квартал.", ftt:"Расписание занятий",
+        suc:"Успешно отправлено!"
+      }
+    };
+
+    function changeLang(lang) {
+      document.querySelectorAll('.lang-area .btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      const l = trans[lang];
+      
+      document.getElementById('t-header').innerText = l.h; document.getElementById('t-sub-header').innerText = l.sh;
+      document.getElementById('m-1').innerText = l.m1; document.getElementById('m-2').innerText = l.m2;
+      document.getElementById('m-3').innerText = l.m3; document.getElementById('m-4').innerText = l.m4;
+      document.getElementById('m-5').innerText = l.m5; document.getElementById('m-6').innerText = l.m6;
+      document.getElementById('m-7').innerText = l.m7; document.getElementById('m-8').innerText = l.m8;
+      document.getElementById('hero-title').innerText = l.ht; document.getElementById('hero-desc').innerText = l.hd;
+      document.getElementById('h-news').innerText = l.hn; document.getElementById('n1-t').innerText = l.n1t;
+      document.getElementById('n1-d').innerText = l.n1d; document.getElementById('n2-t').innerText = l.n2t;
+      document.getElementById('n2-d').innerText = l.n2d; document.getElementById('h-history').innerText = l.hhis;
+      document.getElementById('p-history').innerText = l.pHis; document.getElementById('h-dirs').innerText = l.hdir;
+      document.getElementById('d1-t').innerText = l.d1t; document.getElementById('d1-d').innerText = l.d1d;
+      document.getElementById('d2-t').innerText = l.d2t; document.getElementById('d2-d').innerText = l.d2d;
+      document.getElementById('d3-t').innerText = l.d3t; document.getElementById('d3-d').innerText = l.d3d;
+      document.getElementById('h-gallery').innerText = l.hgal; document.getElementById('h-man').innerText = l.hman;
+      document.getElementById('l1-p').innerText = l.l1p; document.getElementById('l1-h').innerText = l.l1h;
+      document.getElementById('h-adm').innerText = l.hadm; document.getElementById('l-fio').innerText = l.lfio;
+      document.getElementById('l-phone').innerText = l.lph; document.getElementById('l-dir').innerText = l.ldir;
+      document.getElementById('b-adm').innerText = l.badm;
+      
+      document.getElementById('f-c1-t').innerText = l.fc1; document.getElementById('f-c2-t').innerText = l.fc2;
+      document.getElementById('f-c3-t').innerText = l.fc3; document.getElementById('f-c4-t').innerText = l.fc4;
+      document.getElementById('f-addr').innerHTML = l.faddr; document.getElementById('f-link-timetable').innerText = l.ftt;
+    }
+
+    function sendData(e, type) {
+      e.preventDefault();
+      const currentLang = document.querySelector('.lang-area .btn.active').innerText.toLowerCase() === 'o\'zbekcha' ? 'uz' : 'ru';
+      let payload = {};
+      let alertBox, btn;
+
+      if(type === 'admission') {
+        btn = document.getElementById('b-adm'); alertBox = document.getElementById('admAlert');
+        payload = { fullName: document.getElementById('fio').value, phone: document.getElementById('phone').value, direction: document.getElementById('dir').value };
+      } else {
+        btn = document.getElementById('b-con'); alertBox = document.getElementById('conAlert');
+        payload = { name: document.getElementById('c-name').value, phone: "+998", message: document.getElementById('c-msg').value };
+      }
+
+      btn.disabled = true;
+      btn.innerText = currentLang === 'uz' ? 'Yuborilmoqda...' : 'Отправка...';
+
+      fetch(scriptURL, { method: 'POST', body: JSON.stringify(payload) })
+        .then(() => {
+          alertBox.innerText = trans[currentLang].suc;
+          alertBox.style.display = 'block';
+          e.target.reset();
+          if(type === 'admission') document.getElementById('phone').value = "+998";
+          btn.disabled = false;
+          btn.innerText = type === 'admission' ? trans[currentLang].badm : (currentLang === 'uz' ? 'Yuborish' : 'Отправить');
+        })
+        .catch(err => console.error(err));
+    }
+  </script>
+</body>
+</html>
